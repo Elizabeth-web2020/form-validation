@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 const useStyles = makeStyles(() => ({
   labelLogo: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 
-const ImagePicker = () => {
+const ImagePicker = ({name, type, accept, onChange}) => {
 
   const [logo, setLogo] = useState("");
 
@@ -61,7 +61,7 @@ const ImagePicker = () => {
     e.target.value = "";
   }, []);
 
-  const convertToBase64 = (file) => {
+  const convertToBase64 = useCallback((file) => {
     return  new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       if (!file) {
@@ -76,12 +76,12 @@ const ImagePicker = () => {
         reject(error);
       };
     });
-  };
+  }, []);
 
-  const deleteImage = (e) => {
+  const deleteImage = useCallback((e) => {
     e.preventDefault();
     setLogo(null);
-  };
+  }, []);
 
   return (
     <>
@@ -108,11 +108,11 @@ const ImagePicker = () => {
       </div>
       <input 
       id="contained-button-file" 
-      type="file"
-      accept="image/*, png, jpeg, jpg"
+      type={type}
+      accept={accept}
       style={{display: "none"}}
-      name="logo"
-      onChange={handleCreateBase64}
+      name={name}
+      onChange={(e) => {handleCreateBase64(e); onChange(e)}}
       />       
     </>
   );

@@ -1,22 +1,13 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import './formInput.css';
 import ImagePicker from '../ImagePicker/imagePicker';
 
 const FormInput = ({label, errors, onChange, id, ...inputProps}) => {
 
-console.log(`errors ${errors}`)
-
-  // const [focused, setFocused] = useState(false);
-
-  // const handleFocus = useCallback((e) => {
-  //   setFocused(true);
-  // }, [])
-
   return (
     <div className='form'>
       <label>{label}</label>
-      { label === 'Image'? <ImagePicker /> : <input {...inputProps} onChange={onChange} />}
-      {/* { label === 'Image'? <ImagePicker /> : <input {...inputProps} onChange={onChange} onBlur={handleFocus} focused={focused.toString()} />} */}
+      { label === 'Image'? <ImagePicker {...inputProps} onChange={onChange} /> : <input {...inputProps} onChange={onChange} />}
       <span>{errors}</span>
     </div>
   );

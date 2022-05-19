@@ -21,48 +21,35 @@ function App() {
       name: "fullname",
       type: "text",
       placeholder: "Full Name",
-      label: "Full Name",
-      // errorMessage: "Full name should be at least 6 characters and shouldn't include any special character!",
-      // pattern: `^[A-Za-z0-9]{6,30}$`,
-      // required: true
+      label: "Full Name"
     },
     {
       id: 2,
       name: "email",
       type: "text",
       placeholder: "Email",
-      label: "Email",
-      // errorMessage: "It should be a valid email address!",
-      // pattern: `^[a-zA-Z0-9.!#$%&'*+\/=?^_\`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$`, //вот почему то именно с регуляркой для почты все сложно
-      // required: true
+      label: "Email"
     },
     {
       id: 3,
       name: "phone",
       type: "text",
       placeholder: "Phone",
-      label: "Phone",
-      // errorMessage: "Example, 066-587-0299",
-      // pattern: `^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$`,
-      // required: true
+      label: "Phone"
     },
     {
       id: 4,
-      // name: "image",
-      // type: "file",
-      // placeholder: "Image",
+      name: "image",
+      type: "file",
       label: "Image",
-      // errorMessage: "This input supports jpeg and png files only",
-      // accept: "image/png, image/jpeg",
-      // required: true
+      accept: "image/*, png, jpeg, jpg",
     }
   ]
 
-  const validate = (values) => {
+  const validate = useCallback((values) => {
 
-    // console.log(values)
     const errors = {};
-  
+    
     const emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     const phoneRegex = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
 
@@ -75,9 +62,8 @@ function App() {
     if (!phoneRegex.test(values.phone)) {
       errors.phone = "Example, 066-587-0299"
     }
-
     return errors;
-  }
+  }, []);
 
   const handleSubmit = (e) => {
       e.preventDefault();
